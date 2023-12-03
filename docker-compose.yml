@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: postgres:16.1-alpine
+    container_name: postgres_typeorm_container
+    restart: always
+    ports:
+      - ${POSTGRES_PORTS}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ${POSTGRES_VOLUMES}
