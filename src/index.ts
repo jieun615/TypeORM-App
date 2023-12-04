@@ -35,6 +35,13 @@ AppDataSource
         res.json(results);
     })
 
+    app.get('/users/:id', async (req, res) => {
+        const results = await AppDataSource.getRepository(User).findOneBy({
+            id: Number(req.params.id)
+        })
+        return res.json(results);
+    })
+
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {
     console.log(`Server Running at http://localhost:${port}`);
