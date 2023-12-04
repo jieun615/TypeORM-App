@@ -30,6 +30,11 @@ AppDataSource
         return res.send(results);
     })
 
+    app.get('/users', async (req, res) => {
+        const results = await AppDataSource.getRepository(User).find();
+        res.json(results);
+    })
+
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {
     console.log(`Server Running at http://localhost:${port}`);
