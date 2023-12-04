@@ -42,13 +42,18 @@ AppDataSource
         return res.json(results);
     })
 
-    app.put('/users/:id',async (req, res) => {
+    app.put('/users/:id', async (req, res) => {
         const user = await AppDataSource.getRepository(User).findOneBy({
             id: Number(req.params.id)
         })
         AppDataSource.getRepository(User).merge(user, req.body);
         const result = await AppDataSource.getRepository(User).save(user);
         return res.send(result);
+    })
+
+    app.delete('/users/:id', async (req, res) => {
+        const result = await AppDataSource.getRepository(User).delete(req.params.id);
+        res.json(result);
     })
 
 const port = process.env.SERVER_PORT;
