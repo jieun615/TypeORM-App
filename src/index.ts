@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import { AppDataSource } from './data-source';
 import dotenv from "dotenv"
 import path from "path"
+import { User } from './entity/User';
 
 const app = express();
 
@@ -20,6 +21,13 @@ AppDataSource
     })
     .catch((err) => {
         console.error(err);
+    })
+
+    app.post('/users', async (req, res) => {
+        const user = await AppDataSource.getRepository(User).create(req.body);
+        console.log(user);
+        const results = await AppDataSource.getRepository(User).save(user);
+        return res.send(results);
     })
 
 const port = process.env.SERVER_PORT;
